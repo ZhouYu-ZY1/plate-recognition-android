@@ -1,0 +1,43 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# 模型文件（原始 ONNX）
+model/
+platesdk/src/main/raw_models/
+*.onnx
+
+# 加密模型文件（含 assets 目录）
+*.enc
+platesdk/src/main/assets/
+
+# Android 构建产物（各模块）
+app/build/
+platesdk/build/
+
+# IDE
+.idea/
+
+# C# 参考实现目录（不提交）
+C# OnnxRuntime  实现车牌检测识别/
+C# OpenCvSharp 车牌颜色识别/
+
+# 密钥实现文件（不提交，使用 .template 代替）
+platesdk/src/main/java/com/zhouyu/platesdk/security/ModelKeyProvider.kt
+
+# 密钥文件、内部文档、加密工具
+key/
+docs/
+tools/

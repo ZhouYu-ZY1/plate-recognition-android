@@ -1,0 +1,45 @@
+// =============================================================================
+// ModelKeyProvider.kt.template
+// =============================================================================
+// 使用说明：
+//   1. 将此文件复制为 ModelKeyProvider.kt（同目录下）
+//   2. 将 partA、partB、salt 替换为你在加密模型时使用的实际字节值
+//   3. 确保 ModelKeyProvider.kt 已被 .gitignore 排除，切勿提交密钥到版本控制
+// =============================================================================
+package com.zhouyu.platesdk.security
+
+import android.content.Context
+import java.security.MessageDigest
+
+object ModelKeyProvider {
+
+    // 密钥后半段（16 字节，替换为你的实际值）
+    private val partA = byteArrayOf(
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    )
+    // 密钥前半段（16 字节，替换为你的实际值）
+    private val partB = byteArrayOf(
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    )
+    // 密钥盐（替换为你的实际值）
+    private val salt = byteArrayOf(
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    )
+
+    /**
+     * 派生模型解密密钥
+     * 密钥由 partA + packageName + partB + salt 拼接后 SHA-256 得到
+     * 与应用包名绑定，防止密钥在不同应用间复用
+     */
+    fun getModelKey(context: Context): ByteArray {
+        val packageBytes = context.packageName.toByteArray(Charsets.UTF_8)
+        return sha256(partA + packageBytes + partB + salt)
+    }
+
+    private fun sha256(input: ByteArray): ByteArray {
+        return MessageDigest.getInstance("SHA-256").digest(input)
+    }
+}

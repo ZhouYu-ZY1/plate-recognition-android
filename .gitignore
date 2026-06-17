@@ -25,12 +25,12 @@ platesdk/src/main/assets/
 
 # Android 构建产物（各模块）
 app/build/
+app/release/
 platesdk/build/
 
 # IDE
 .idea/
 
-# C# 参考实现目录（不提交）
 C# OnnxRuntime  实现车牌检测识别/
 C# OpenCvSharp 车牌颜色识别/
 
